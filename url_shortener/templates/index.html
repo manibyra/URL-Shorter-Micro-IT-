@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>URL Shortener - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            color: #000;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .dark-mode {
+            background: #1e1e1e;
+            color: #fff;
+        }
+
+        .dark-mode input,
+        .dark-mode button,
+        .dark-mode textarea,
+        .dark-mode select {
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+        }
+
+        .theme-toggle-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 8px 12px;
+            border: none;
+            background: #444;
+            color: white;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background: #4192fb;
+            color: #fff;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            background-color: #63bef4;
+            border-radius: 5px;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .shorten-form {
+            margin-top: 20px;
+        }
+
+        .shorten-form input[type="url"] {
+            padding: 10px;
+            width: 300px;
+            max-width: 80%;
+            border-radius: 5px;
+            border: 1px solid #81c6f4;
+        }
+
+        .shorten-form button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        .result input {
+            width: 300px;
+            max-width: 80%;
+            padding: 10px;
+            border: 1px solid #5ebceb;
+            border-radius: 5px;
+        }
+
+        .recent-urls {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+
+        .recent-urls li {
+            margin: 5px 0;
+        }
+
+        .recent-urls a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .recent-urls a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+
+        window.onload = () => {
+            if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            }
+        };
+    </script>
+
+    <div class="top-bar">
+        <a href="/dashboard">Go to Dashboard</a>
+        <a href button onclick="toggleTheme()">Theme</button> </a>
+    </div>
+
+    <div class="container">
+        <h1>Welcome to URL Shortener</h1>
+        <p>Use and go</p>
+        
+        <form action="/shorten_anon" method="post" class="shorten-form">
+            <input type="url" name="original_url" placeholder="Enter URL" required>
+            <button type="submit">Shorten</button>
+        </form>
+
+        
+        {% if short_url %}
+        <div class="result">
+            <label>Shortened URL:</label><br>
+            <input type="text" readonly value="{{ short_url }}">
+        </div>
+        {% endif %}
+
+    </div>
+    <div style="text-align: center; margin-top: 40px; font-size: 16px;">
+        <p>
+            <a href="/dashboard" style="color: #007bff; text-decoration: none;">Go to Dashboard</a>
+            and
+            <a href="/register" style="color: #007bff; text-decoration: none;">Register</a>
+            for more features
+        </p>
+    </div>
+
+</body>
+</html>

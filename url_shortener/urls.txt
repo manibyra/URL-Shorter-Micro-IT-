@@ -1,0 +1,25 @@
+--database
+-- USERS TABLE
+CREATE TABLE users (
+    id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+-- URLS TABLE
+CREATE TABLE urls (
+    id INT NOT NULL AUTO_INCREMENT,
+    original_url TEXT NOT NULL,
+    short_url VARCHAR(100) NOT NULL UNIQUE,
+    custom_alias VARCHAR(100) UNIQUE,
+    qr_code_path VARCHAR(255),
+    user_id INT,
+    expires_at DATETIME NULL,  -- ✅ Expiration column added\
+    expiration_date DATETIME NULL;
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Make sure short_url is unique (already covered above, so this line is optional)
+-- ALTER TABLE urls ADD UNIQUE (short_url);
